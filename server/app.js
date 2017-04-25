@@ -80,30 +80,24 @@ app.post('/links',
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
-app.get('/signup', (req,res,next) => {} );
+app.get('/signup', (req, res, next) => {} );
 
 app.post('/signup', 
-(req,res,next) => {
+(req, res, next) => {
   console.log('IN SIGNUP POST');
   var username = req.body.username;
   var password = req.body.password;
-  var option = req.body;
-  Users.create(option);
-  res.end();
-  //Users.doesUserExist('HELLLLO')
-  //console.log('NEED TO BE FALSE', Users.doesUserExist('BLAHHHHHH'))
-  //Users.insertUser(username, password);
-  //console.log('USER IN SIGNUP ', user)
-  // if (Users.doesUserExist(username)) {
-  //   console.log("EXISTING USER");
-  //   res.redirect('/signup');
-  // } else {
-  //   Users.insertUser(username, password);
-  //   console.log('NEW USER: ');
-  //   next();
-  // }
-  // Users.doesUserExist("user");
-  // next();
+  
+  return Users.get({username})
+    .then(user => {
+      if (user) {
+        res.redirect('/signup');
+      } else {
+        Users.create(req.body);
+        res.redirect('/');
+        res.end();
+      }
+    });
 } );
 
 /************************************************************/
