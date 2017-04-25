@@ -100,6 +100,24 @@ app.post('/signup',
     });
 } );
 
+app.post('/login', 
+(req, res, next) => {
+  console.log('IN SIGNUP POST');
+  var username = req.body.username;
+  var password = req.body.password;
+  
+  return Users.get({username})
+    .then(user => {
+      let tempPass = Users.hashPassword(password);
+      if (user && tempPass === user.password) {
+        res.redirect('/');
+      } else {
+        res.redirect('/login');
+        res.end();
+      }
+    });
+} );
+
 /************************************************************/
 // Handle the code parameter route last - if all other routes fail
 // assume the route is a short code and try and handle it here.
