@@ -84,7 +84,6 @@ app.get('/signup', (req, res, next) => {} );
 
 app.post('/signup', 
 (req, res, next) => {
-  console.log('IN SIGNUP POST');
   var username = req.body.username;
   var password = req.body.password;
   
@@ -102,7 +101,6 @@ app.post('/signup',
 
 app.post('/login', 
 (req, res, next) => {
-  console.log('IN SIGNUP POST');
   var username = req.body.username;
   var password = req.body.password;
   
